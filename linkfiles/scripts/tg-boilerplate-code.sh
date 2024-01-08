@@ -46,6 +46,12 @@ module_file_name=$(extract_values "module_file_name" "$SKELETON_YAML")
 envs=$(yq '.envs | @json' -r "$SKELETON_YAML")
 generate_accounts_json "$envs"
 
+# Create subdirectories under the 'env' directory
+if [ ! -d "$COMMON_DIR" ]; then
+    echo "Directory '$COMMON_DIR' not found. Creating the directory named common."
+    mkdir -p "$COMMON_DIR"
+fi
+
 # Create and populate .hcl
 module_file="$COMMON_DIR/$module_file_name"
 content="terraform {
@@ -65,8 +71,8 @@ create_hcl_file "$inputs_file" "$content"
 
 # Create subdirectories under the 'env' directory
 if [ ! -d "$ENV_DIR" ]; then
-    echo "Directory '$ENV_DIR' not found."
-    exit 1
+    echo "Directory '$ENV_DIR' not found. Creating the directory named env."
+    mkdir -p "$ENV_DIR"
 fi
 
 # Iterate through environments
