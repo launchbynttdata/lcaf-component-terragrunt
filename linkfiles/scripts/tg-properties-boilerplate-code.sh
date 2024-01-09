@@ -22,7 +22,7 @@ if [ ! -d "$ENV_DIR" ]; then
     mkdir -p "$ENV_DIR"
 fi
 
-envs=$(yq '.envs | @json' -r "$SKELETON_YAML")
+envs=$(yq -r .envs $SKELETON_YAML)
 
 # Iterate through environments
 environments=$(echo "$envs" | jq '{ "envs": . }' | jq -r '.envs[]? | keys[]')
