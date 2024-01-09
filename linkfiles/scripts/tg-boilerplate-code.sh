@@ -43,7 +43,7 @@ git_repo_url=$(extract_values "git_repo_url" "$SKELETON_YAML")
 module_file_name=$(extract_values "module_file_name" "$SKELETON_YAML")
 
 # Create accounts.json file
-envs=$(yq '.envs | @json' -r "$SKELETON_YAML")
+envs=$(yq -r .envs $SKELETON_YAML)
 generate_accounts_json "$envs"
 
 # Create subdirectories under the 'env' directory
