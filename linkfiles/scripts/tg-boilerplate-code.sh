@@ -30,7 +30,7 @@ generate_accounts_json() {
     local input="$1"
 
     # Use jq to iterate through the input JSON and create key-value pairs
-    accounts_json="$accounts_json$(echo "$input" | jq '{ "envs": . }' | jq -r '.envs[] | to_entries[] | { (.key): .value.aws_profile }' | jq -s 'add')"
+    accounts_json="$accounts_json$(echo "$input" | jq '{ "envs": . }' | jq -r '.envs[] | to_entries[] | { (.key): .value.profile }' | jq -s 'add')"
 
     # Write accounts.json to a file
     echo "$accounts_json" > accounts.json
@@ -95,7 +95,7 @@ for environment in $environments; do
 
         region_hcl_file="$region_dir/region.hcl"
         content="locals {
-  aws_region = \"$region\"
+  env_region = \"$region\"
 }"
         create_hcl_file "$region_hcl_file" "$content"
 
