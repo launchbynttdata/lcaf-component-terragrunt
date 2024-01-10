@@ -6,6 +6,7 @@ SKELETON_YAML="$BASE_DIR/skeleton.yaml"
 INPUTS_YAML="$BASE_DIR/inputs.yaml"
 COMMON_DIR="$BASE_DIR/common"
 ENV_DIR="$BASE_DIR/env"
+INTERNALS_DIR="$BASE_DIR/internals"
 ACCOUNTS_JSON="$BASE_DIR/accounts.json"
 
 # Function to extract values from a YAML file
@@ -68,6 +69,12 @@ create_hcl_file "$module_file" "$content"
 inputs_file="$INPUTS_YAML"
 content="naming_prefix: $naming_prefix"
 create_hcl_file "$inputs_file" "$content"
+
+# Create internals directory
+if [ ! -d "$INTERNALS_DIR" ]; then
+    echo "Directory '$INTERNALS_DIR' not found. Creating the directory named '$INTERNALS_DIR'."
+    mkdir -p "$INTERNALS_DIR/pipelines"
+fi
 
 # Create subdirectories under the 'env' directory
 if [ ! -d "$ENV_DIR" ]; then
