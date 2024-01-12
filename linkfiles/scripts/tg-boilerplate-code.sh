@@ -6,6 +6,7 @@ SKELETON_YAML="$BASE_DIR/skeleton.yaml"
 INPUTS_YAML="$BASE_DIR/inputs.yaml"
 COMMON_DIR="$BASE_DIR/common"
 ENV_DIR="$BASE_DIR/env"
+INTERNALS_DIR="$BASE_DIR/internals"
 ACCOUNTS_JSON="$BASE_DIR/accounts.json"
 
 # Function to extract values from a YAML file
@@ -30,7 +31,7 @@ generate_accounts_json() {
     local input="$1"
 
     # Use jq to iterate through the input JSON and create key-value pairs
-    accounts_json="$accounts_json$(echo "$input" | jq '{ "envs": . }' | jq -r '.envs[] | to_entries[] | { (.key): .value.aws_profile }' | jq -s 'add')"
+    accounts_json="$accounts_json$(echo "$input" | jq '{ "envs": . }' | jq -r '.envs[] | to_entries[] | { (.key): .value.profile }' | jq -s 'add')"
 
     # Write accounts.json to a file
     echo "$accounts_json" > accounts.json
@@ -43,7 +44,7 @@ git_repo_url=$(extract_values "git_repo_url" "$SKELETON_YAML")
 module_file_name=$(extract_values "module_file_name" "$SKELETON_YAML")
 
 # Create accounts.json file
-envs=$(yq '.envs | @json' -r "$SKELETON_YAML")
+envs=$(yq -r .envs $SKELETON_YAML)
 generate_accounts_json "$envs"
 
 # Create subdirectories under the 'env' directory
@@ -68,6 +69,12 @@ create_hcl_file "$module_file" "$content"
 inputs_file="$INPUTS_YAML"
 content="naming_prefix: $naming_prefix"
 create_hcl_file "$inputs_file" "$content"
+
+# Create internals directory
+if [ ! -d "$INTERNALS_DIR" ]; then
+    echo "Directory '$INTERNALS_DIR' not found. Creating the directory named '$INTERNALS_DIR'."
+    mkdir -p "$INTERNALS_DIR/pipelines"
+fi
 
 # Create subdirectories under the 'env' directory
 if [ ! -d "$ENV_DIR" ]; then
@@ -95,7 +102,7 @@ for environment in $environments; do
 
         region_hcl_file="$region_dir/region.hcl"
         content="locals {
-  aws_region = \"$region\"
+  env_region = \"$region\"
 }"
         create_hcl_file "$region_hcl_file" "$content"
 
