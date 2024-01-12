@@ -1,9 +1,9 @@
-CONTAINER_NAME ?= tfstate
-REGION ?= eastus
 NAME_PREFIX ?= demo-svc
+REGION ?= eastus
 ENVIRONMENT ?= dev
 ENV_INSTANCE ?= 000
-STORAGE_ACCOUNT_NAME ?= $(subst -,,$(NAME_PREFIX)sa$(REGION)$(ENVIRONMENT)$(ENV_INSTANCE)tf)
+CONTAINER_NAME ?= tfstate
+STORAGE_ACCOUNT_NAME ?= $(subst -,,$(NAME_PREFIX)sa$(REGION)$(ENVIRONMENT)$(ENV_INSTANCE)tf) # 24 char limit
 RESOURCE_GROUP_NAME ?= $(NAME_PREFIX)-rg-$(REGION)-$(ENVIRONMENT)-$(ENV_INSTANCE)-tfstate
 
 .PHONY: terragrunt/remote_state/azure
