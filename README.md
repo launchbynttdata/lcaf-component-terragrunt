@@ -1,4 +1,4 @@
-# lcaf-component-aws-terragrunt
+# lcaf-component-terragrunt
 
 ---
 This repo contains shell script used to generate boilerplate code for terragrunt skeleton repositories.
@@ -12,4 +12,3 @@ It contains the following:
 
 `linkfiles/scripts/tg-boilerplate-code.sh` file contains bash commands to generate terragrunt boilerplate code in skeleton repositories. The script is run using `make target` named `terragrunt/generate`.
 
-The generated terragrunt boilerplate code is specific to AWS cloud platform.
