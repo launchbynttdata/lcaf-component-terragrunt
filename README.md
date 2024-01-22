@@ -1,4 +1,4 @@
-# caf-component-aws-terragrunt
+# lcaf-component-aws-terragrunt
 
 ---
 This repo contains shell script used to generate boilerplate code for terragrunt skeleton repositories.
