@@ -1,4 +1,4 @@
-NAME_PREFIX ?= demo-svc
+NAME_PREFIX ?= demo
 REGION ?= eastus
 ENVIRONMENT ?= dev
 ENV_INSTANCE ?= 000
