@@ -1,14 +1,9 @@
 # lcaf-component-terragrunt
 
 ---
-This repo contains shell script used to generate boilerplate code for terragrunt skeleton repositories.
+This repo contains files used with Terragrunt repositories within the Launch Common Automation Framework (LCAF).
 
 It contains the following:
 
-* tasks/boilerplate - Makefiles for performing terragrunt operations on your module to generate terragrunt boilerplate code.
-* linkfiles/scripts - Shell script to generate terragrunt boilerplate code.
-
-## Terragrunt boilerplate code generation
-
-`linkfiles/scripts/tg-boilerplate-code.sh` file contains bash commands to generate terragrunt boilerplate code in skeleton repositories. The script is run using `make target` named `terragrunt/generate`.
-
+* tasks - Makefiles for performing Terragrunt operations on your module
+* linkfiles - other files used by Terragrunt and LCAF projects
